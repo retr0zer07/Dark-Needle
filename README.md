@@ -13,10 +13,12 @@ A polished, premium single-page website for **Dark Needle Tattoo Studio** — a 
 | **Services** | Six service cards with pricing indicators |
 | **Stats** | Animated counters (tattoos completed, artists, years, satisfaction) |
 | **Gallery / Portfolio** | Filterable 4-column masonry-style grid |
+| **Theme Toggle** | Switch between dark and light mode with saved preference |
 | **Artists** | Single featured artist profile with specialty and social link |
 | **About** | Studio story, pillars, and trust signals |
+| **Location** | Dedicated studio location section with embedded map |
 | **Testimonials** | Client reviews + press/media trust logos |
-| **Contact / Booking** | Full booking request form with client-side validation |
+| **Contact / Booking** | Full booking form plus WhatsApp reservation CTA |
 | **Footer** | Nav, address, email, legal links |
 | **Localization** | Spanish-first copy with JavaScript-managed booking status messages |
 

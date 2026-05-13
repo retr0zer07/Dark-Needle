@@ -25,6 +25,7 @@
   const header = $('#site-header');
   const burger = $('#nav-burger');
   const navLinks = $('#nav-links');
+  const themeToggle = $('#theme-toggle');
 
   function handleScroll() {
     header.classList.toggle('scrolled', window.scrollY > 20);
@@ -38,6 +39,41 @@
     burger.setAttribute('aria-expanded', String(isOpen));
     document.body.style.overflow = isOpen ? 'hidden' : '';
   });
+
+  /* ── THEME TOGGLE ─────────────────────────────────────────── */
+  const THEME_KEY = 'dark-needle-theme';
+  const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+  const savedTheme = (() => {
+    try {
+      return localStorage.getItem(THEME_KEY);
+    } catch (err) {
+      return null;
+    }
+  })();
+
+  function applyTheme(theme) {
+    const isLight = theme === 'light';
+    document.documentElement.setAttribute('data-theme', isLight ? 'light' : 'dark');
+    if (themeToggle) {
+      themeToggle.setAttribute('aria-pressed', String(isLight));
+      themeToggle.setAttribute('title', isLight ? 'Cambiar a modo oscuro' : 'Cambiar a modo claro');
+    }
+  }
+
+  applyTheme(savedTheme || (prefersLight ? 'light' : 'dark'));
+
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      const nextTheme = current === 'light' ? 'dark' : 'light';
+      applyTheme(nextTheme);
+      try {
+        localStorage.setItem(THEME_KEY, nextTheme);
+      } catch (err) {
+        /* ignore storage errors in privacy mode */
+      }
+    });
+  }
 
   /* close mobile nav on link click */
   $$('.nav__link').forEach((link) => {
@@ -85,6 +121,11 @@
     setTimeout(() => el.classList.add('in-view'), 200 + i * 150);
   });
 
+  /* fallback: ensure hidden reveals don't stay invisible (screenshots / edge cases) */
+  setTimeout(() => {
+    $$('.reveal:not(.in-view)').forEach((el) => el.classList.add('in-view'));
+  }, 500);
+
   /* ── HERO PARTICLES ──────────────────────────────────────── */
   const particleContainer = $('#hero-particles');
   if (particleContainer) {
@@ -108,21 +149,34 @@
   /* ── GALLERY FILTER ──────────────────────────────────────── */
   const filterBtns = $$('.filter-btn');
   const galleryItems = $$('.gallery__item');
+  const galleryStatus = $('#gallery-status');
+
+  function applyGalleryFilter(filter, label) {
+    galleryItems.forEach((item) => {
+      const show = filter === 'all' || item.dataset.category === filter;
+      item.classList.toggle('gallery__item--hidden', !show);
+      if (show) {
+        // re-trigger reveal for re-shown items
+        item.classList.remove('in-view');
+        revealObserver.observe(item);
+      }
+    });
+    if (galleryStatus) {
+      galleryStatus.textContent = `Mostrando estilo: ${label}`;
+    }
+  }
 
   filterBtns.forEach((btn) => {
+    btn.setAttribute('aria-pressed', String(btn.classList.contains('active')));
     btn.addEventListener('click', () => {
-      filterBtns.forEach((b) => b.classList.remove('active'));
-      btn.classList.add('active');
-      const filter = btn.dataset.filter;
-      galleryItems.forEach((item) => {
-        const show = filter === 'all' || item.dataset.category === filter;
-        item.classList.toggle('gallery__item--hidden', !show);
-        if (show) {
-          // re-trigger reveal for re-shown items
-          item.classList.remove('in-view');
-          revealObserver.observe(item);
-        }
+      filterBtns.forEach((b) => {
+        b.classList.remove('active');
+        b.setAttribute('aria-pressed', 'false');
       });
+      btn.classList.add('active');
+      btn.setAttribute('aria-pressed', 'true');
+      const filter = btn.dataset.filter;
+      applyGalleryFilter(filter, btn.textContent.trim());
     });
   });
 

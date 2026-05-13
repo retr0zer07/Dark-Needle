@@ -27,8 +27,14 @@
         <li><a href="#gallery"  class="nav__link">Galería</a></li>
         <li><a href="#artists"  class="nav__link">Artista</a></li>
         <li><a href="#about"    class="nav__link">Nosotros</a></li>
+        <li><a href="#location" class="nav__link">Ubicación</a></li>
         <li><a href="#contact"  class="nav__link nav__link--cta">Reservar</a></li>
       </ul>
+
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Cambiar entre modo claro y oscuro" aria-pressed="false">
+        <span class="theme-toggle__icon theme-toggle__icon--sun" aria-hidden="true">☀</span>
+        <span class="theme-toggle__icon theme-toggle__icon--moon" aria-hidden="true">◐</span>
+      </button>
 
       <button class="nav__burger" id="nav-burger" aria-label="Abrir menú" aria-expanded="false">
         <span></span><span></span><span></span>
@@ -239,12 +245,14 @@
       </div>
 
       <div class="gallery__filter reveal">
-        <button class="filter-btn active" data-filter="all">Todos</button>
-        <button class="filter-btn" data-filter="blackwork">Blackwork</button>
-        <button class="filter-btn" data-filter="realism">Realismo</button>
-        <button class="filter-btn" data-filter="japanese">Japonés</button>
-        <button class="filter-btn" data-filter="fineline">Línea fina</button>
+        <button type="button" class="filter-btn active" data-filter="all">Todos</button>
+        <button type="button" class="filter-btn" data-filter="blackwork">Blackwork</button>
+        <button type="button" class="filter-btn" data-filter="realism">Realismo</button>
+        <button type="button" class="filter-btn" data-filter="japanese">Japonés</button>
+        <button type="button" class="filter-btn" data-filter="fineline">Línea fina</button>
+        <button type="button" class="filter-btn" data-filter="minimalista">Minimalista</button>
       </div>
+      <p class="gallery__status reveal" id="gallery-status">Mostrando estilo: Todos</p>
 
       <div class="gallery__grid" id="gallery-grid">
 
@@ -278,11 +286,11 @@
           </div>
         </div>
 
-        <div class="gallery__item reveal" data-category="fineline">
+        <div class="gallery__item reveal" data-category="minimalista">
           <div class="gallery__img-wrap">
             <img class="gallery__image" src="https://source.unsplash.com/1200x1600/?fineline,tattoo&sig=4" alt="Tatuaje botánico de línea fina" loading="lazy" />
             <div class="gallery__overlay">
-              <span class="gallery__style">Línea fina</span>
+              <span class="gallery__style">Minimalista</span>
               <p class="gallery__name">Manga botánica</p>
             </div>
           </div>
@@ -308,11 +316,11 @@
           </div>
         </div>
 
-        <div class="gallery__item reveal" data-category="fineline">
+        <div class="gallery__item reveal" data-category="minimalista">
           <div class="gallery__img-wrap">
             <img class="gallery__image" src="https://source.unsplash.com/1200x1600/?tattoo,geometric&sig=7" alt="Tatuaje de mapa celestial en línea fina" loading="lazy" />
             <div class="gallery__overlay">
-              <span class="gallery__style">Línea fina</span>
+              <span class="gallery__style">Minimalista</span>
               <p class="gallery__name">Mapa celestial</p>
             </div>
           </div>
@@ -334,6 +342,37 @@
         <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" class="btn btn--ghost">
           Ver portafolio completo en Instagram ↗
         </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       LOCATION
+  ═══════════════════════════════════════════ -->
+  <section class="section location" id="location">
+    <div class="container location__layout">
+      <div class="location__content reveal">
+        <span class="section__label">Visítanos</span>
+        <h2 class="section__title">Ubicación del estudio</h2>
+        <p class="location__intro">
+          Estamos en Silver Lake, en un espacio privado y cómodo para que vivas tu sesión con calma.
+          Agenda por WhatsApp o formulario y te compartimos indicaciones precisas de llegada.
+        </p>
+        <ul class="location__details">
+          <li><strong>Dirección:</strong> 742 Ink Row, Silver Lake, Los Angeles, CA 90026</li>
+          <li><strong>Horario:</strong> Mar – Sáb de 11:00 a 20:00 · Dom de 12:00 a 18:00</li>
+          <li><strong>Parking:</strong> Estacionamiento público a 2 minutos caminando</li>
+        </ul>
+        <a href="https://www.openstreetmap.org/?mlat=34.093&mlon=-118.262#map=15/34.093/-118.262" target="_blank" rel="noopener noreferrer" class="btn btn--ghost">
+          Abrir mapa completo ↗
+        </a>
+      </div>
+      <div class="location__map reveal">
+        <iframe
+          title="Mapa de ubicación del estudio Dark Needle"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          src="https://www.openstreetmap.org/export/embed.html?bbox=-118.292%2C34.074%2C-118.233%2C34.111&layer=mapnik&marker=34.093%2C-118.262"></iframe>
       </div>
     </div>
   </section>
@@ -563,7 +602,23 @@
               <a href="tel:+13235550174">(323) 555-0174</a>
             </div>
           </li>
+          <li>
+            <span class="contact__detail-icon">💬</span>
+            <div>
+              <strong>WhatsApp</strong>
+              <a href="https://wa.me/13235550174?text=Hola%20Dark%20Needle%2C%20quiero%20reservar%20una%20consulta%20para%20un%20tatuaje." target="_blank" rel="noopener noreferrer">
+                Reservar por WhatsApp
+              </a>
+            </div>
+          </li>
         </ul>
+
+        <div class="contact__cta">
+          <p>¿Prefieres una reserva rápida?</p>
+          <a href="https://wa.me/13235550174?text=Hola%20Dark%20Needle%2C%20quiero%20reservar%20una%20consulta%20para%20un%20tatuaje." target="_blank" rel="noopener noreferrer" class="btn btn--whatsapp">
+            Reserva por WhatsApp
+          </a>
+        </div>
 
         <div class="contact__socials">
           <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram">
@@ -671,6 +726,7 @@
           <li><a href="#gallery">Galería</a></li>
           <li><a href="#artists">Artista</a></li>
           <li><a href="#about">Nosotros</a></li>
+          <li><a href="#location">Ubicación</a></li>
           <li><a href="#contact">Reservar</a></li>
         </ul>
       </nav>
@@ -690,6 +746,11 @@
       </p>
     </div>
   </footer>
+
+  <a class="whatsapp-float" href="https://wa.me/13235550174?text=Hola%20Dark%20Needle%2C%20quiero%20reservar%20una%20consulta%20para%20un%20tatuaje." target="_blank" rel="noopener noreferrer" aria-label="Abrir WhatsApp para reservar">
+    <span aria-hidden="true">💬</span>
+    <span>WhatsApp</span>
+  </a>
 
   <script src="js/main.js"></script>
 </body>
