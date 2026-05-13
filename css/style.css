@@ -1728,9 +1728,9 @@ textarea { resize: vertical; }
 
 .floating-socials {
   position: fixed;
-  right: clamp(var(--sp-3), 2.5vw, var(--sp-6));
-  bottom: clamp(var(--sp-3), 2.5vw, var(--sp-6));
-  z-index: 130;
+  right: var(--sp-6);
+  bottom: var(--sp-6);
+  z-index: 120;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -1796,6 +1796,11 @@ textarea { resize: vertical; }
 }
 
 @media (max-width: 600px) {
+  .floating-socials {
+    right: var(--sp-4);
+    bottom: var(--sp-4);
+  }
+
   .floating-social {
     width: 48px;
     min-height: 48px;
