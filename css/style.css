@@ -441,10 +441,10 @@ textarea { resize: vertical; }
   }
 }
 
-@media (min-width: 60.0625rem) and (max-width: 70rem) {
+@media (min-width: 961px) and (max-width: 70rem) {
   .nav__link {
     padding-inline: var(--sp-3);
-    font-size: 0.78rem;
+    font-size: var(--fs-xs);
   }
 
   .nav__link--cta {
