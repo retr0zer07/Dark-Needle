@@ -187,7 +187,7 @@ textarea { resize: vertical; }
   letter-spacing: 0.08em;
   text-transform: uppercase;
   transition: var(--transition);
-  white-space: nowrap;
+  white-space: normal;
   max-width: 100%;
   text-align: center;
 }
@@ -870,10 +870,6 @@ textarea { resize: vertical; }
   margin-top: var(--sp-12);
 }
 
-.gallery__cta .btn {
-  white-space: normal;
-}
-
 .gallery__status {
   text-align: center;
   color: var(--clr-text-3);
@@ -1486,7 +1482,6 @@ textarea { resize: vertical; }
 
 .contact__cta .btn {
   width: 100%;
-  white-space: normal;
 }
 
 .contact__cta p {
@@ -1793,7 +1788,6 @@ textarea { resize: vertical; }
 
   .hero__actions .btn {
     width: 100%;
-    white-space: normal;
     justify-content: center;
   }
 
