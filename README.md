@@ -13,11 +13,12 @@ A polished, premium single-page website for **Dark Needle Tattoo Studio** — a 
 | **Services** | Six service cards with pricing indicators |
 | **Stats** | Animated counters (tattoos completed, artists, years, satisfaction) |
 | **Gallery / Portfolio** | Filterable 4-column masonry-style grid |
-| **Artists** | Team profiles with specialties and social links |
+| **Artists** | Single featured artist profile with specialty and social link |
 | **About** | Studio story, pillars, and trust signals |
 | **Testimonials** | Client reviews + press/media trust logos |
 | **Contact / Booking** | Full booking request form with client-side validation |
 | **Footer** | Nav, address, email, legal links |
+| **Localization** | Spanish-first copy with JavaScript-managed booking status messages |
 
 ### Design highlights
 - Dark premium aesthetic with a gold accent palette
@@ -75,8 +76,8 @@ Dark-Needle/
 |---|---|
 | Studio name / tagline | `index.html` — hero section & `<title>` |
 | Colours & fonts | `css/style.css` — `:root` custom properties at the top |
-| Artist bios & photos | `index.html` — `#artists` section; replace `.artist-card__avatar` with `<img>` |
-| Gallery images | `index.html` — replace `.gallery__placeholder` divs with `<img>` tags |
+| Artist bio & photo | `index.html` — `#artists` section; edit `.artist-card__photo` |
+| Gallery images | `index.html` — edit `.gallery__image` tags |
 | Contact details | `index.html` — `#contact` section |
 | Form action | `js/main.js` — replace the `setTimeout` mock with a real `fetch` call |
 

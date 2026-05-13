@@ -10,6 +10,16 @@
   /* ── HELPERS ─────────────────────────────────────────────── */
   const $  = (sel, ctx = document) => ctx.querySelector(sel);
   const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
+  const i18n = {
+    es: {
+      submitting: 'Enviando…',
+      submitDefault: 'Enviar solicitud de reserva',
+      successTitle: '¡Solicitud recibida!',
+      successBody: 'Gracias — te contactaremos dentro de las próximas 24 horas.',
+    },
+  };
+  const locale = 'es';
+  const t = i18n[locale];
 
   /* ── NAVBAR ──────────────────────────────────────────────── */
   const header = $('#site-header');
@@ -154,6 +164,13 @@
   /* ── BOOKING FORM ────────────────────────────────────────── */
   const form = $('#booking-form');
   const formSuccess = $('#form-success');
+  const formSuccessTitle = $('#form-success h3');
+  const formSuccessBody = $('#form-success p');
+
+  if (formSuccessTitle && formSuccessBody) {
+    formSuccessTitle.textContent = t.successTitle;
+    formSuccessBody.textContent = t.successBody;
+  }
 
   if (form && formSuccess) {
     form.addEventListener('submit', (e) => {
@@ -178,11 +195,12 @@
       /* simulate async submission */
       const submitBtn = $('[type="submit"]', form);
       submitBtn.disabled = true;
-      submitBtn.textContent = 'Sending…';
+      submitBtn.textContent = t.submitting;
 
       setTimeout(() => {
         form.hidden = true;
         formSuccess.hidden = false;
+        submitBtn.textContent = t.submitDefault;
       }, 900);
     });
 
