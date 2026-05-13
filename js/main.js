@@ -16,16 +16,36 @@
       submitDefault: 'Enviar solicitud de reserva',
       successTitle: '¡Solicitud recibida!',
       successBody: 'Gracias — te contactaremos dentro de las próximas 24 horas.',
+      themeToggleLabel: 'Cambiar entre modo claro y oscuro',
+      themeToggleToDark: 'Cambiar a modo oscuro',
+      themeToggleToLight: 'Cambiar a modo claro',
+      galleryStatusPrefix: 'Mostrando estilo:',
+    },
+    en: {
+      submitting: 'Sending…',
+      submitDefault: 'Send booking request',
+      successTitle: 'Request received!',
+      successBody: 'Thank you — we will contact you within the next 24 hours.',
+      themeToggleLabel: 'Switch between light and dark mode',
+      themeToggleToDark: 'Switch to dark mode',
+      themeToggleToLight: 'Switch to light mode',
+      galleryStatusPrefix: 'Showing style:',
     },
   };
-  const locale = 'es';
-  const t = i18n[locale];
+  const LOCALE_KEY = 'dark-needle-locale';
+  const localeSelects = $$('.lang-select');
+  let currentLocale = 'es';
+  const copyFor = (locale) => i18n[locale] || i18n.es;
 
   /* ── NAVBAR ──────────────────────────────────────────────── */
   const header = $('#site-header');
   const burger = $('#nav-burger');
   const navLinks = $('#nav-links');
   const themeToggle = $('#theme-toggle');
+  const form = $('#booking-form');
+  const formSuccess = $('#form-success');
+  const formSuccessTitle = $('#form-success h3');
+  const formSuccessBody = $('#form-success p');
   const mobileNavQuery = window.matchMedia('(max-width: 960px)');
 
   function handleScroll() {
@@ -76,11 +96,51 @@
     document.documentElement.setAttribute('data-theme', isLight ? 'light' : 'dark');
     if (themeToggle) {
       themeToggle.setAttribute('aria-pressed', String(isLight));
-      themeToggle.setAttribute('title', isLight ? 'Cambiar a modo oscuro' : 'Cambiar a modo claro');
+      const t = copyFor(currentLocale);
+      themeToggle.setAttribute('title', isLight ? t.themeToggleToDark : t.themeToggleToLight);
+      themeToggle.setAttribute('aria-label', t.themeToggleLabel);
+    }
+  }
+
+  function applyLocale(locale) {
+    const normalized = locale === 'en' ? 'en' : 'es';
+    currentLocale = normalized;
+    const t = copyFor(normalized);
+    document.documentElement.setAttribute('lang', normalized);
+
+    localeSelects.forEach((select) => {
+      if (select.value !== normalized) {
+        select.value = normalized;
+      }
+    });
+
+    if (formSuccessTitle && formSuccessBody) {
+      formSuccessTitle.textContent = t.successTitle;
+      formSuccessBody.textContent = t.successBody;
+    }
+
+    if (themeToggle) {
+      themeToggle.setAttribute('aria-label', t.themeToggleLabel);
+    }
+
+    const galleryStatus = $('#gallery-status');
+    if (galleryStatus) {
+      const activeFilter = $('.filter-btn.active');
+      const activeLabel = activeFilter ? activeFilter.textContent.trim() : 'Todos';
+      galleryStatus.textContent = `${t.galleryStatusPrefix} ${activeLabel}`;
     }
   }
 
   applyTheme(savedTheme || (prefersLight ? 'light' : 'dark'));
+
+  const savedLocale = (() => {
+    try {
+      return localStorage.getItem(LOCALE_KEY);
+    } catch (err) {
+      return null;
+    }
+  })();
+  applyLocale(savedLocale || 'es');
 
   if (themeToggle) {
     themeToggle.addEventListener('click', () => {
@@ -94,6 +154,17 @@
       }
     });
   }
+
+  localeSelects.forEach((select) => {
+    select.addEventListener('change', () => {
+      applyLocale(select.value);
+      try {
+        localStorage.setItem(LOCALE_KEY, currentLocale);
+      } catch (err) {
+        /* ignore storage errors in privacy mode */
+      }
+    });
+  });
 
   /* close mobile nav on link click */
   $$('.nav__link').forEach((link) => {
@@ -169,6 +240,7 @@
   const galleryStatus = $('#gallery-status');
 
   function applyGalleryFilter(filter, label) {
+    const t = copyFor(currentLocale);
     galleryItems.forEach((item) => {
       const show = filter === 'all' || item.dataset.category === filter;
       item.classList.toggle('gallery__item--hidden', !show);
@@ -179,7 +251,7 @@
       }
     });
     if (galleryStatus) {
-      galleryStatus.textContent = `Mostrando estilo: ${label}`;
+      galleryStatus.textContent = `${t.galleryStatusPrefix} ${label}`;
     }
   }
 
@@ -233,19 +305,10 @@
   }
 
   /* ── BOOKING FORM ────────────────────────────────────────── */
-  const form = $('#booking-form');
-  const formSuccess = $('#form-success');
-  const formSuccessTitle = $('#form-success h3');
-  const formSuccessBody = $('#form-success p');
-
-  if (formSuccessTitle && formSuccessBody) {
-    formSuccessTitle.textContent = t.successTitle;
-    formSuccessBody.textContent = t.successBody;
-  }
-
   if (form && formSuccess) {
     form.addEventListener('submit', (e) => {
       e.preventDefault();
+      const t = copyFor(currentLocale);
 
       /* basic validation */
       const required = $$('[required]', form);
@@ -309,5 +372,11 @@
   );
 
   sections.forEach((sec) => spyObserver.observe(sec));
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      closeMobileNav();
+    }
+  });
 
 })();
