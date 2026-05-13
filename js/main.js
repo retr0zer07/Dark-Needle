@@ -26,6 +26,7 @@
   const burger = $('#nav-burger');
   const navLinks = $('#nav-links');
   const themeToggle = $('#theme-toggle');
+  const mobileNavQuery = window.matchMedia('(max-width: 960px)');
 
   function handleScroll() {
     header.classList.toggle('scrolled', window.scrollY > 20);
@@ -33,12 +34,31 @@
   window.addEventListener('scroll', handleScroll, { passive: true });
   handleScroll();
 
+  function closeMobileNav() {
+    burger.classList.remove('open');
+    navLinks.classList.remove('open');
+    burger.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
   burger.addEventListener('click', () => {
     const isOpen = burger.classList.toggle('open');
     navLinks.classList.toggle('open', isOpen);
     burger.setAttribute('aria-expanded', String(isOpen));
     document.body.style.overflow = isOpen ? 'hidden' : '';
   });
+
+  function handleMobileNavChange() {
+    if (!mobileNavQuery.matches) {
+      closeMobileNav();
+    }
+  }
+
+  if (typeof mobileNavQuery.addEventListener === 'function') {
+    mobileNavQuery.addEventListener('change', handleMobileNavChange);
+  } else if (typeof mobileNavQuery.addListener === 'function') {
+    mobileNavQuery.addListener(handleMobileNavChange);
+  }
 
   /* ── THEME TOGGLE ─────────────────────────────────────────── */
   const THEME_KEY = 'dark-needle-theme';
@@ -78,10 +98,7 @@
   /* close mobile nav on link click */
   $$('.nav__link').forEach((link) => {
     link.addEventListener('click', () => {
-      burger.classList.remove('open');
-      navLinks.classList.remove('open');
-      burger.setAttribute('aria-expanded', 'false');
-      document.body.style.overflow = '';
+      closeMobileNav();
     });
   });
 
