@@ -26,7 +26,7 @@
   const burger = $('#nav-burger');
   const navLinks = $('#nav-links');
   const themeToggle = $('#theme-toggle');
-  const mobileNavQuery = window.matchMedia('(max-width: 960px)');
+  const mobileNavQuery = window.matchMedia('(max-width: 60rem)');
 
   function handleScroll() {
     header.classList.toggle('scrolled', window.scrollY > 20);

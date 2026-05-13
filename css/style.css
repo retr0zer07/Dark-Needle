@@ -68,6 +68,9 @@
   /* layout */
   --max-w:    1200px;
   --nav-h:    72px;
+  --bp-nav:   60rem;
+  --artist-card-img-min: 180px;
+  --artist-card-img-max: 220px;
 
   /* effects */
   --radius-sm:  4px;
@@ -393,7 +396,7 @@ textarea { resize: vertical; }
 .nav__burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 /* mobile menu */
-@media (max-width: 960px) {
+@media (max-width: 60rem) {
   .nav__burger { display: flex; }
 
   .nav__links {
@@ -438,7 +441,7 @@ textarea { resize: vertical; }
   }
 }
 
-@media (min-width: 961px) and (max-width: 1120px) {
+@media (min-width: 60.0625rem) and (max-width: 70rem) {
   .nav__link {
     padding-inline: var(--sp-3);
     font-size: 0.78rem;
@@ -1755,7 +1758,7 @@ textarea { resize: vertical; }
 @media (min-width: 720px) {
   .artist-card {
     display: grid;
-    grid-template-columns: minmax(180px, 220px) minmax(0, 1fr);
+    grid-template-columns: minmax(var(--artist-card-img-min), var(--artist-card-img-max)) minmax(0, 1fr);
     align-items: center;
     gap: var(--sp-8);
   }
@@ -1765,7 +1768,7 @@ textarea { resize: vertical; }
   }
 
   .artist-card__photo {
-    width: min(100%, 220px);
+    width: min(100%, var(--artist-card-img-max));
     height: auto;
     aspect-ratio: 1 / 1;
   }
