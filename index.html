@@ -29,12 +29,27 @@
         <li><a href="#about"    class="nav__link">Nosotros</a></li>
         <li><a href="#location" class="nav__link">Ubicación</a></li>
         <li><a href="#contact"  class="nav__link nav__link--cta">Reservar</a></li>
+        <li class="nav__mobile-language">
+          <label for="nav-language-mobile" class="nav__mobile-language-label">Idioma</label>
+          <select id="nav-language-mobile" class="lang-select" aria-label="Seleccionar idioma en menú móvil">
+            <option value="es">ES</option>
+            <option value="en">EN</option>
+          </select>
+        </li>
       </ul>
 
-      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Cambiar entre modo claro y oscuro" aria-pressed="false">
-        <span class="theme-toggle__icon theme-toggle__icon--sun" aria-hidden="true">☀</span>
-        <span class="theme-toggle__icon theme-toggle__icon--moon" aria-hidden="true">◐</span>
-      </button>
+      <div class="nav__tools">
+        <label for="nav-language" class="sr-only">Seleccionar idioma</label>
+        <select id="nav-language" class="lang-select" aria-label="Seleccionar idioma">
+          <option value="es">ES</option>
+          <option value="en">EN</option>
+        </select>
+
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Cambiar entre modo claro y oscuro" aria-pressed="false">
+          <span class="theme-toggle__icon theme-toggle__icon--sun" aria-hidden="true">☀</span>
+          <span class="theme-toggle__icon theme-toggle__icon--moon" aria-hidden="true">◐</span>
+        </button>
+      </div>
 
       <button class="nav__burger" id="nav-burger" aria-label="Abrir menú" aria-expanded="false">
         <span></span><span></span><span></span>
