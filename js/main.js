@@ -26,7 +26,7 @@
   const burger = $('#nav-burger');
   const navLinks = $('#nav-links');
   const themeToggle = $('#theme-toggle');
-  const mobileNavQuery = window.matchMedia('(max-width: 60rem)');
+  const mobileNavQuery = window.matchMedia('(max-width: 960px)');
 
   function handleScroll() {
     header.classList.toggle('scrolled', window.scrollY > 20);
@@ -48,11 +48,17 @@
     document.body.style.overflow = isOpen ? 'hidden' : '';
   });
 
-  window.addEventListener('resize', () => {
+  function handleMobileNavChange() {
     if (!mobileNavQuery.matches) {
       closeMobileNav();
     }
-  });
+  }
+
+  if (typeof mobileNavQuery.addEventListener === 'function') {
+    mobileNavQuery.addEventListener('change', handleMobileNavChange);
+  } else if (typeof mobileNavQuery.addListener === 'function') {
+    mobileNavQuery.addListener(handleMobileNavChange);
+  }
 
   /* ── THEME TOGGLE ─────────────────────────────────────────── */
   const THEME_KEY = 'dark-needle-theme';

@@ -68,7 +68,6 @@
   /* layout */
   --max-w:    1200px;
   --nav-h:    72px;
-  --bp-nav:   60rem;
   --artist-card-img-min: 180px;
   --artist-card-img-max: 220px;
 
@@ -112,7 +111,6 @@ html {
   scroll-behavior: smooth;
   font-size: 16px;
   -webkit-text-size-adjust: 100%;
-  overflow-x: clip;
 }
 
 body {
@@ -396,7 +394,7 @@ textarea { resize: vertical; }
 .nav__burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 /* mobile menu */
-@media (max-width: 60rem) {
+@media (max-width: 960px) {
   .nav__burger { display: flex; }
 
   .nav__links {
